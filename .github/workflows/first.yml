@@ -25,4 +25,12 @@ jobs:
     - name: Step two
       run: "Get-ChildItem Env: |sort-object name"
 
-#in this where the workflow ends
+  job3:
+    name: Third job
+    needs: [job1,job2]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Step one
+      uses: actions/checkout@v3
+    - name: Step two
+      run: echo "HELLO I'M JOB3"
