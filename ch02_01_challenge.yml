@@ -1,5 +1,5 @@
 # This is a basic workflow to help you get started with Actions
-name: ch02_01_challenge.yml
+name: ch02_01_challenge
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
@@ -50,3 +50,5 @@ jobs:
       run: |
         date
         echo fecha Ultimo job
+
+#here ends the job
