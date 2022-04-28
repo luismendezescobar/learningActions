@@ -1,10 +1,10 @@
 # This is a basic workflow to help you get started with Actions
-name: first
+name: ch02_01_challenge.yml
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ ch02_01 ]
+    branches: [ ch02_01_challenge ]
 
 jobs:
   job1:
@@ -14,7 +14,9 @@ jobs:
     - name: Step one
       uses: actions/checkout@v3
     - name: Step two
-      run: env | sort
+      run: |
+        echo fecha en ubuntu first job
+        date
 
   job2:
     name: Second job
@@ -23,14 +25,28 @@ jobs:
     - name: Step one
       uses: actions/checkout@v3
     - name: Step two
-      run: "Get-ChildItem Env: |sort-object name"
+      run: |
+        Write-Output "fecha en windows second job"
+        date
 
   job3:
     name: Third job
-    needs: [job1,job2]
+    runs-on: macos-latest
+    steps:
+    - name: Step one
+      uses: actions/checkout@v3
+    - name: Step two
+      run: |
+        echo La fecha en macos  third job
+        date
+  job4:
+    name: Third job
+    needs: [job1,job2,job3]
     runs-on: ubuntu-latest
     steps:
     - name: Step one
       uses: actions/checkout@v3
     - name: Step two
-      run: echo "HELLO I'M JOB3"
+      run: |
+        date
+        echo fecha Ultimo job
