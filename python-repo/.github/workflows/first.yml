@@ -1,8 +1,8 @@
 name: first
 #https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
 on:
-  #push:  
-  #  branches: [ main ] 
+  push:  
+    branches: [ main ] 
 
 jobs:
   job1:  #this is a job identifier, not the job name
