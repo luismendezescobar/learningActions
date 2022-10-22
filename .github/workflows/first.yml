@@ -29,4 +29,7 @@ jobs:
     - name: Step one job3
       uses: actions/checkout@v3
     - name: Step two job3
-      run: echo I need job1 and job2 to finish first
+      run: |
+      echo I need job1 and job2 to finish first
+      echo I also can print the date, see below
+      date
