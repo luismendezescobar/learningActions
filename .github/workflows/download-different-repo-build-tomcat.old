@@ -1,0 +1,57 @@
+name: Build Tomcat
+
+on:
+  push:  
+    branches: [ main ] 
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out tomcat-users.xml
+      uses: actions/checkout@v3
+
+    - name: List project files and java version
+      run: |
+          ls -ltr
+          java -version
+
+    - name: Check out Apache Tomcat
+      uses: actions/checkout@v3
+      with:
+        repository: apache/tomcat # Repository name with owner
+        ref: main               # The branch, tag or SHA to checkout
+        path: ./tomcat            # Relative path under $GITHUB_WORKSPACE
+      #path: ./tomcat , means that will save the entire repo called apache/tomcat 
+      #under the folder ./tomcat, the full path would be>
+      #/home/runner/work/learningActions/learningActions/tomcat
+      
+    - name: Check where we are  #check what the previous step did.
+      run: |
+          echo "this is the value of GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
+          pwd
+          ls -ltr
+          ls ./tomcat -ltr      
+          
+
+    - name: Setup Java 11       #we change it to 11
+      uses: actions/setup-java@v1
+      with:
+        java-version: '11'     # The JDK version to make available on the path
+        java-package: jdk         # (jre, jdk, or jdk+fx) - defaults to jdk
+        architecture: x64         # (x64 or x86) - defaults to x64
+
+    - name: List project files and java version
+      run: |
+          ls -ltr
+          java -version
+
+    - name: Copy tomcat-users.xml into Tomcat configuration directory
+      run: cp -v tomcat-users.xml ./tomcat/conf/tomcat-users.xml
+
+    - name: Compile Tomcat
+      run: |
+        cd ./tomcat
+        ant
