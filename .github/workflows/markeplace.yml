@@ -1,0 +1,11 @@
+name: Python application
+on:
+  push:  
+    branches: [ main ] 
+jobs:
+  build:
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.5.0
+    - name: Python Syntax Checker
+      uses: cclauss/Find-Python-syntax-errors-action@v0.2.0
