@@ -3,7 +3,6 @@ name: first
 on:
   push:  
     branches: [ main ] 
-
 jobs:
   job1:  #this is a job identifier, not the job name
     name: First job
