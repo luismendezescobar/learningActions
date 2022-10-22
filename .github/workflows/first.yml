@@ -20,4 +20,4 @@ jobs:
     - name: Step one job2
       uses: actions/checkout@v3
     - name: Step two job2
-      run: echo this is the github_workspace: $GITHUB_WORKSPACE
+      run: "echo this is the github_workspace: $GITHUB_WORKSPACE"
