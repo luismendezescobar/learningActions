@@ -24,11 +24,16 @@ jobs:
         repository: apache/tomcat # Repository name with owner
         ref: main               # The branch, tag or SHA to checkout
         path: ./tomcat            # Relative path under $GITHUB_WORKSPACE
+      #path: ./tomcat , means that will save the entire repo called apache/tomcat 
+      #under the folder ./tomcat, the full path would be>
+      #/home/runner/work/learningActions/learningActions/tomcat
       
     - name: Check where we are  #check what the previous step did.
       run: |
+          echo "this is the value of GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
           pwd
-          ls -ltr      
+          ls -ltr
+          ls ./tomcat -ltr      
           
 
     - name: Setup Java 11       #we change it to 11
