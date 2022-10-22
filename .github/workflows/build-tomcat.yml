@@ -23,7 +23,7 @@ jobs:
       with:
         repository: apache/tomcat # Repository name with owner
         ref: master               # The branch, tag or SHA to checkout
-        path: ./tomcat            # Relative path under $GITHUB_WORKSPACE
+        #path: ./tomcat            # Relative path under $GITHUB_WORKSPACE
       
     - name: Check where we are  #check what the previous step did.
       run: |
