@@ -37,9 +37,17 @@ jobs:
     # Run Terraform init
     - name: Terraform Init
       id: init
-      run: terraform init 
+      run: |
+        pwd
+        cd /home/runner/work/learningActions/learningActions/create_storage
+        pwd
+        terraform init 
 
     # Run a Terraform apply
     - name: Terraform apply
       id: apply
-      run: terraform apply -auto-approve      
+      run: |
+        pwd
+        cd /home/runner/work/learningActions/learningActions/create_storage
+        pwd
+        terraform apply -auto-approve      
