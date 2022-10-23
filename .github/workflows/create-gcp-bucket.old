@@ -1,0 +1,53 @@
+# Example workflow
+# .github/workflows/example.yml
+#OIDC stands for "OpenID Connect".
+name: 'example oidc'
+on:
+  push:
+    branches:
+    - 'main'
+jobs:
+  run:
+    name: 'example to list bucket contents'
+    permissions:
+      id-token: write
+      contents: read
+    runs-on: 'ubuntu-latest'
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    # Install the latest version of Terraform CLI 
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1      
+
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v0'
+      with:
+        workload_identity_provider: ${{ secrets.PROVIDER_NAME }} # this is the output provider_name from the TF module        
+        service_account: ${{ secrets.SA_EMAIL }} # this is a SA email configured using the TF module with access to YOUR-GCS-BUCKET
+
+    - name: change directory
+      run: |
+        pwd
+        cd create_storage
+        pwd
+
+    # Run Terraform init
+    - name: Terraform Init
+      id: init
+      run: |
+        pwd
+        cd /home/runner/work/learningActions/learningActions/create_storage
+        pwd
+        terraform init 
+
+    # Run a Terraform apply
+    - name: Terraform apply
+      id: apply
+      run: |
+        pwd
+        cd /home/runner/work/learningActions/learningActions/create_storage
+        pwd
+        terraform apply -auto-approve      
