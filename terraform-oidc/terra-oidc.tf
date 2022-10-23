@@ -10,3 +10,7 @@ module "gh_oidc" {
     }
   }
 }
+
+output "module_output" {
+  value = module.gh_oidc
+}
