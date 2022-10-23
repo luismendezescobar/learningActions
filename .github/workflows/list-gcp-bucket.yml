@@ -14,11 +14,32 @@ jobs:
       contents: read
     runs-on: 'ubuntu-latest'
     steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    # Install the latest version of Terraform CLI 
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1      
+
     - id: 'auth'
       uses: 'google-github-actions/auth@v0'
       with:
-        workload_identity_provider: ${{ secrets.PROVIDER_NAME }} # this is the output provider_name from the TF module
+        workload_identity_provider: ${{ secrets.PROVIDER_NAME }} # this is the output provider_name from the TF module        
         service_account: ${{ secrets.SA_EMAIL }} # this is a SA email configured using the TF module with access to YOUR-GCS-BUCKET
-    - id: 'list-buckets-contents'
+
+    - name: change directory
       run: |
-        curl https://storage.googleapis.com/storage/v1/b/mystorage-10-22-2022/o --header "Authorization: Bearer ${{ steps.auth.outputs.access_token }}"
+        pwd
+        cd create_storage
+        pwd
+
+    # Run Terraform init
+    - name: Terraform Init
+      id: init
+      run: terraform init 
+
+    # Run a Terraform apply
+    - name: Terraform apply
+      id: apply
+      run: terraform apply -auto-approve      
