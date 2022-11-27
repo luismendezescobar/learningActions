@@ -4,7 +4,7 @@ on:
   push:
 
 env:
-  FILE_NAME: hello-world.old
+  FILE_NAME: 100daysofcode.py
 
 jobs:
   job1:
@@ -18,7 +18,7 @@ jobs:
       run: |
         echo "this is the value of GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
         pwd
-        ls -ltr
+        ls -latr
     
     
     - name: Upload artifact for linux file name ${{ env.FILE_NAME}}
