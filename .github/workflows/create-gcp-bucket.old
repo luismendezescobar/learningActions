@@ -8,7 +8,7 @@ on:
     - 'main'
 jobs:
   run:
-    name: 'example to list bucket contents'
+    name: 'example to create a new bucket in gcp'
     permissions:
       id-token: write
       contents: read
