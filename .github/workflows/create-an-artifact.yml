@@ -7,10 +7,8 @@ env:
   FILE_NAME: 100daysofcode.py
 
 jobs:
-  job1:
-    name: upload-artifact-job
+  job1-test:  
     runs-on: ubuntu-latest
-    
     steps:
     - name: Check out code
       uses: actions/checkout@v3
@@ -19,10 +17,21 @@ jobs:
         echo "this is the value of GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
         pwd
         ls -latr
-    
-    
-    - name: Upload artifact for linux file name ${{ env.FILE_NAME}}
+    - name: setup python envioronment
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    - name: run the python script
+      run:  python 100daysofcode.py
+
+  job2-build:
+    runs-on: ubuntu-latest
+    needs: [job1-test]  
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v3        
+    - name: Upload artifact for file name  ${{ env.FILE_NAME}}
       uses: actions/upload-artifact@v3
       with:
-        name: my-artifact
+        name: my-artifact-2
         path: ./${{ env.FILE_NAME}}
