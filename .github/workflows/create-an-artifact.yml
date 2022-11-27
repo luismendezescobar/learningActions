@@ -1,20 +1,22 @@
 name: create-artifact
 
-on: [push]
+on: 
+  push:
 
 env:
   FILE_NAME: artifact-created
 
 jobs:
-  name: my-build
-  runs-on: ubuntu-latest
-  
-  steps:
-  - name: Check out code
-    uses: actions/checkout@v3
-  
-  - name: Upload artifact for linux file name ${{ env.FILE_NAME}}
-    uses: actions/upload-artifact@v3
-    with:
-      name: my-artifact
-      path: ./${{ env.FILE_NAME}}
+  job1:
+    name: upload-artifact-job
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v3
+    
+    - name: Upload artifact for linux file name ${{ env.FILE_NAME}}
+      uses: actions/upload-artifact@v3
+      with:
+        name: my-artifact
+        path: ./${{ env.FILE_NAME}}
